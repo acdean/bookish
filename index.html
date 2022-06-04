@@ -41,15 +41,20 @@ function updateGuesses() {
     var gText = ["<h2 class='guessTitle'>Guesses</h2>"];
     //debug("Guesses " + guessedWords + ", " + guessedWords.length);
     gText.push("<table id='guessList'>");
+    gText.push("<tr>");
+    gText.push("<td class='count'>#</td>");
+    gText.push("<td class='guess'>Guess</td>");
+    gText.push("<td class='hits'>Hits</td>");
+    gText.push("</tr>");
     for (var i = guessedWords.length - 1 ; i >= 0 ; i--) {
         var word = guessedWords[i];
         //debug("Word[" + i + "] " + word);
         gText.push("<tr>");
-        gText.push("<td class='count'>" + (i + 1) + "</td>");
+        gText.push("<td class='count'>" + (i + 1) + ":</td>");
         // TODO make this highlight the word in question
         gText.push("<td class='guess'>" + word + "</td>");
         // TODO count matches
-        gText.push("<td class='matches'>X</td>");
+        gText.push("<td class='hits'>X</td>");
         gText.push("</tr>");
     }
     gText.push("</table>");
@@ -72,11 +77,14 @@ function guessWord() {
 </script>
 <body>
 <div id="left">
-  <div id="textPane">The text goes here</div>
-  <div id="inputPane">
-    <input type="text" id="inputword" size="20" onforminput="return guessWord()"/>
-    <input type="button" value="Guess" onclick="return guessWord()"/>
-  </div>
+    <div id="textPane">The text goes here</div>
+    <div id="inputPane">
+        <div style="text-align: center">
+            <a>^ Top</a>
+            <input type="text" id="inputword" size="20" onforminput="return guessWord()"/>
+            <input type="button" value="Guess" onclick="return guessWord()"/>
+        </div>
+    </div>
 </div>
 <div id="right">
   <div id="guessesPane">The guesses go here</div>
