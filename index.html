@@ -60,7 +60,7 @@ function updateGuesses() {
 
 function guessWord() {
     word = document.getElementById("inputword").value.toLowerCase();
-    alert("WORD " + word);
+    //debug("WORD " + word);
     if (!reservedWords.includes(word) && !guessedWords.includes(word)) {
         guessedWords.push(word)
     }
