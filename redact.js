@@ -16,8 +16,11 @@ function redact(inArr) {
 }
 
 function redactWord(word) {
+    if (solved) {
+        return word;
+    }
     if (word.match("^" + PUNC_RE + "$")) {
-        // punctuation is never redacted 
+        // punctuation is never redacted
         return word;
     }
     var lower = word.toLowerCase();

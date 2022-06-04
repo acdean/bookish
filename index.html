@@ -7,12 +7,13 @@
 </head>
 <script language="javascript">
 
+var solved = false;
 var textArr = [];   // an array of "words" (words, markup or punctuation)
 var highlight = ""; // TODO highlight all instances of this word
 var guessedWords = [];
 var reservedWords = [
     // free guesses
-    'a', 'in', 'be', 'are', 'so', 'the', 'this', 'that', 'then',
+    'a', 'and', 'in', 'be', 'are', 'so', 'the', 'this', 'that', 'then',
     // also all the expected html tags
     '<p>', '</p>',
     '<h1>', '</h1>',
@@ -33,6 +34,13 @@ function init() {
 
 function updateText() {
     rText = redact(textArr);
+    if (solved) {
+        // add a link to the original
+        rText += "<div>Read the whole thing at Project Gutenberg: "
+            + "<a href='https://www.gutenberg.org/ebooks/"
+            + "11"
+            + "'>Link</a></div>"
+    }
     d = document.getElementById('textPane');
     d.innerHTML = rText;
 }
@@ -69,18 +77,24 @@ function guessWord() {
     if (!reservedWords.includes(word) && !guessedWords.includes(word)) {
         guessedWords.push(word)
     }
+    // if (all title words are in guessed words) {
+    //solved = true;
+    // }
     highlight = word;
     updateText();
     updateGuesses();
 }
 
+function gotoTop() {
+    document.getElementById('textPane').scrollTop = 0;
+}
 </script>
 <body>
 <div id="left">
     <div id="textPane">The text goes here</div>
     <div id="inputPane">
         <div style="text-align: center">
-            <a>^ Top</a>
+            <input type="button" value="Top" onclick="return gotoTop()"/>
             <input type="text" id="inputword" size="20" onforminput="return guessWord()"/>
             <input type="button" value="Guess" onclick="return guessWord()"/>
         </div>

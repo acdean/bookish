@@ -45,7 +45,10 @@ p {
 input[type = text] {
     height: 80%;
     font-size: 20pt;
-    border: 2px solid red;
+}
+input[type = button] {
+    height: 80%;
+    font-size: 20pt;
 }
 
 #guessesPane {
