@@ -38,7 +38,7 @@ function updateText() {
 }
 
 function updateGuesses() {
-    var gText = ["<h2>Guesses</h2>"];
+    var gText = ["<h2 class='guessTitle'>Guesses</h2>"];
     //debug("Guesses " + guessedWords + ", " + guessedWords.length);
     gText.push("<table id='guessList'>");
     for (var i = guessedWords.length - 1 ; i >= 0 ; i--) {
@@ -72,12 +72,15 @@ function guessWord() {
 </script>
 <body>
 <div id="left">
-<div id="textPane">The text goes here</div>
-<div id="inputPane">
-<input type="text" id="inputword" size="20" onforminput="return guessWord()"/>
-<input type="button" value="Guess" onclick="return guessWord()"/>
+  <div id="textPane">The text goes here</div>
+  <div id="inputPane">
+    <input type="text" id="inputword" size="20" onforminput="return guessWord()"/>
+    <input type="button" value="Guess" onclick="return guessWord()"/>
+  </div>
 </div>
-<div id="guessesPane">The guesses go here</div>
+<div id="right">
+  <div id="guessesPane">The guesses go here</div>
+</div>
 <script>init()</script>
 </body>
 </html>
