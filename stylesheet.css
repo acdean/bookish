@@ -1,0 +1,55 @@
+body {
+    font-size: 20pt;
+    font-family: 'sans-serif';
+    font-weight: 'bold';
+    background-color: #333;
+    color: #96f;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+p {
+    text-indent:30px;
+    text-align: justify;
+}
+
+#left {
+    float: left;
+    width: 75%;
+    background-color: #f69;
+}
+
+#right {
+    float:right;
+    width: 25%;
+    background-color: #9f6;
+}
+
+#textPane {
+    height: 90%;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #333;
+    color: #ccc;
+}
+
+#inputPane {
+    height: 10%;
+    background-color: #96f;
+}
+input[type = text] {
+    border: 2px solid red;
+}
+
+#guessesPane {
+    height: 100%;
+    background-color: #333;
+    padding: 15px;
+    overflow-y: auto;
+}

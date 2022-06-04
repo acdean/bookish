@@ -1,0 +1,83 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<script type="text/javascript" src="split.js"></script>
+<script type="text/javascript" src="load.js"></script>
+<script type="text/javascript" src="redact.js"></script>
+</head>
+<script language="javascript">
+
+var textArr = [];   // an array of "words" (words, markup or punctuation)
+var highlight = ""; // TODO highlight all instances of this word
+var guessedWords = [];
+var reservedWords = [
+    // free guesses
+    'a', 'in', 'be', 'are', 'so', 'the', 'this', 'that', 'then',
+    // also all the expected html tags
+    '<p>', '</p>',
+    '<h1>', '</h1>',
+    '<h2>', '</h2>',
+    '<i>', '</i>',
+    '<br/>',
+    // entities for later TODO
+    '&ldquo;', '&rdquo;',
+    '&lsquo;', '&rsquo;',
+    '&mdash;'
+]
+
+function init() {
+    textArr = loadChapter('1');
+    updateText();
+    updateGuesses();
+}
+
+function updateText() {
+    rText = redact(textArr);
+    d = document.getElementById('textPane');
+    d.innerHTML = rText;
+}
+
+function updateGuesses() {
+    var gText = ["<h2>Guesses</h2>"];
+    //debug("Guesses " + guessedWords + ", " + guessedWords.length);
+    gText.push("<table id='guessList'>");
+    for (var i = guessedWords.length - 1 ; i >= 0 ; i--) {
+        var word = guessedWords[i];
+        //debug("Word[" + i + "] " + word);
+        gText.push("<tr>");
+        gText.push("<td class='count'>" + (i + 1) + "</td>");
+        // TODO make this highlight the word in question
+        gText.push("<td class='guess'>" + word + "</td>");
+        // TODO count matches
+        gText.push("<td class='matches'>X</td>");
+        gText.push("</tr>");
+    }
+    gText.push("</table>");
+    //debug("gtext " + gText);
+    d = document.getElementById('guessesPane');
+    d.innerHTML = gText.join('');
+}
+
+function guessWord() {
+    word = document.getElementById("inputword").value.toLowerCase();
+    alert("WORD " + word);
+    if (!reservedWords.includes(word) && !guessedWords.includes(word)) {
+        guessedWords.push(word)
+    }
+    highlight = word;
+    updateText();
+    updateGuesses();
+}
+
+</script>
+<body>
+<div id="left">
+<div id="textPane">The text goes here</div>
+<div id="inputPane">
+<input type="text" id="inputword" size="20" onforminput="return guessWord()"/>
+<input type="button" value="Guess" onclick="return guessWord()"/>
+</div>
+<div id="guessesPane">The guesses go here</div>
+<script>init()</script>
+</body>
+</html>
