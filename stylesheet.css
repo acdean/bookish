@@ -7,10 +7,14 @@ body {
 
 h1 {
     text-align: center;
+    margin-top: 5pt;
+    margin-bottom: 5pt;
 }
 
 h2 {
     text-align: center;
+    margin-top: 5pt;
+    margin-bottom: 5pt;
 }
 
 p {
