@@ -2,7 +2,6 @@
 <head>
 <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
 <script type="text/javascript" src="split.js"></script>
-<script type="text/javascript" src="load.js"></script>
 <script type="text/javascript" src="redact.js"></script>
 </head>
 <script language="javascript">
@@ -27,9 +26,9 @@ var reservedWords = [
 ]
 
 function init() {
-    textArr = loadChapter('1');
-    updateText();
-    updateGuesses();
+    textArr = split(text);  // splits text (defined in game/*js) into textarray
+    updateText();           // writes text panel
+    updateGuesses();        // writes guess panel
 }
 
 function updateText() {
@@ -103,6 +102,14 @@ function gotoTop() {
 <div id="right">
   <div id="guessesPane">The guesses go here</div>
 </div>
-<script>init()</script>
+<script>
+// load the relevant game
+var game = document.location.search.substring(1);
+document.write('<script language="javascript" src="games/' + game + '.js"><\/script>');
+</script>
+<!-- and initialise it -->
+<script>
+init();
+</script>
 </body>
 </html>
