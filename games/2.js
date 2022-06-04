@@ -1,5 +1,5 @@
 var title = ["adventures", "of", "huckleberry", "finn"];
-var test = "<h1>Adventures of Huckleberry Finn</h1>"
+var text = "<h1>Adventures of Huckleberry Finn</h1>"
     + "<h2>Mark Twain</h2>"
     + "<br/>"
     + "<h2>CHAPTER XXV.</h2>"
