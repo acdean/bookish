@@ -16,7 +16,7 @@ function redact(inArr) {
 }
 
 function redactWord(word) {
-    if (word.match(/^[ \.,!‘’“”—]{1,}$/)) {
+    if (word.match("^" + PUNC_RE + "$")) {
         // punctuation is never redacted 
         return word;
     }
