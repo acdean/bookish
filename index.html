@@ -6,7 +6,8 @@
 </head>
 <script language="javascript">
 
-var solved = false;
+var winner = false;
+var reveal = false;
 var textArr = [];   // an array of "words" (words, markup or punctuation)
 var highlight = ""; // TODO highlight all instances of this word
 var guessedWords = [];
@@ -28,22 +29,41 @@ var reservedWords = [
 ]
 
 function init() {
-    textArr = split(text);  // splits text (defined in game/*js) into textarray
-    updateText();           // writes text panel
-    updateGuesses();        // writes guess panel
+    textArr = split(text);      // splits text (defined in game/*js) into textarray
+    rText = redactText();       // redacts the entire array
+    displayText(rText);         // writes text panel
+    updateGuesses();            // writes guess panel
 }
 
-function updateText() {
-    rText = redact(textArr);
-    if (solved) {
-        // add a link to the original
-        rText += "<div>Read the whole thing at Project Gutenberg: "
-            + "<a href='https://www.gutenberg.org/ebooks/"
-            + "11"
-            + "'>Link</a></div>"
+function displayText(rText) {
+    out = []
+    if (winner) {
+        var h = 0;
+        var m = 0;
+        for (var i = 0 ; i < guessedHits.length ; i++) {
+            if (guessedHits[i] == 0) {
+                m++;
+            } else {
+                h++;
+            }
+        }
+        var pc = h * 100 / (h + m);
+        out.push("<h1>YOU ARE A WINNER</h1>"
+            + "<h2>Total Hits: " + h + "</h2>"
+            + "<h2>Total Misses: " + m + "</h2>"
+            + "<h2>Percentage correct: " + Math.floor(pc) + "</h2>"
+        );
     }
+    if (reveal) {
+        // add a link to the original
+        out.push("<h2>Read the whole thing at</h2>"
+            + "<h2><a href='" + url + "'>Project Gutenberg</a></h2>"
+            + "<br/>"
+        );
+    }
+    out.push(rText);
     d = document.getElementById('textPane');
-    d.innerHTML = rText;
+    d.innerHTML = out.join('');
 }
 
 function updateGuesses() {
@@ -60,9 +80,7 @@ function updateGuesses() {
         //debug("Word[" + i + "] " + word);
         gText.push("<tr>");
         gText.push("<td class='count'>" + (i + 1) + ":</td>");
-        // TODO make this highlight the word in question
         gText.push("<td class='guess'>" + word + "</td>");
-        // TODO count matches
         gText.push("<td class='hits'>" + guessedHits[i] + "</td>");
         gText.push("</tr>");
     }
@@ -76,16 +94,30 @@ function guessWord() {
     word = document.getElementById("inputword").value.toLowerCase();
     //debug("WORD " + word);
     if (!reservedWords.includes(word) && !guessedWords.includes(word)) {
-        guessedWords.push(word)
-        // if (all title words are in guessed words) {
-        //solved = true;
-        // }
+        guessedWords.push(word);
+        if (title.includes(word)) {
+            // remove word from title array
+            var tmp = [];
+            for (var i = 0 ; i < title.length ; i++) {
+                if (title[i] != word) {
+                    tmp.push(title[i]);
+                }
+            }
+            title = tmp;
+            //debug("Title " + title);
+        }
+        if (title.length == 0) {
+            reveal = true;
+            winner = true;
+        }
         // highlight is the current guess
         highlight = word;
         hits = 0;
-        updateText();   // this will update hits
+        rText = redactText();   // this will update hits and return redacted text array
+        //debug("Guess: Word " + word + " Hits " + hits);
         guessedHits.push(hits);
-        updateGuesses();
+        displayText(rText);     // show the text
+        updateGuesses();        // show the guesses
     }
 }
 

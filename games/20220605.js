@@ -1,5 +1,5 @@
-var title = ['secret', 'garden']
-
+var title = ['secret', 'garden'];
+var url = "https://www.gutenberg.org/ebooks/113";
 var text = ""
     + "<h1>The Secret Garden</h1>"
     + "<h2>Frances Hodgson Burnett</h2>"

@@ -1,5 +1,7 @@
 var title = ["alice's", "adventures", "in", "wonderland"];
-var text = "<h1>Alice's Adventures in Wonderland</h1>"
+var url = "https://www.gutenberg.org/ebooks/11";
+var text = ""
+    + "<h1>Alice's Adventures in Wonderland</h1>"
     + "<h2>by Lewis Carroll</h2>"
     + "<br/>"
     + "<h2>CHAPTER I.<br/>Down the Rabbit-Hole</h2>"

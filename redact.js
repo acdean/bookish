@@ -5,12 +5,12 @@
 // go through source a word at a time, redact all those that aren't in the words list
 // also convert back into a string
 var hits = 0;
-function redact(inArr) {
+function redactText() {
     var outStr = [];
     hits = 0;
     //debug("Guessed [" + guessedWords + "]");
     //debug("Reserved [" + reservedWords + "]");
-    inArr.forEach(element => {
+    textArr.forEach(element => {
         outStr.push(redactWord(element));
     });
     //debug("OutStr [" + outStr.join('') + "]");
@@ -20,9 +20,6 @@ function redact(inArr) {
 
 // highlight is current guess
 function redactWord(word) {
-    if (solved) {
-        return word;
-    }
     if (word.match("^" + PUNC_RE + "$")) {
         // punctuation is never redacted
         return word;
@@ -41,6 +38,9 @@ function redactWord(word) {
         } else {
             return word;
         }
+    }
+    if (reveal) {
+        return word;
     }
     return '████████████████████'.substr(0, word.length);
 }
