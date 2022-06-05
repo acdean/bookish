@@ -91,8 +91,16 @@ function updateGuesses() {
     d.innerHTML = gText.join('');
 }
 
-function guessWord() {
-    word = document.getElementById("inputword").value.toLowerCase();
+function guessWord(event) {
+    // button sends null, keypress sends keycode of input
+    if (event != null && event.keyCode != 13) {
+        // ignore keys that aren't enter
+        return;
+    }
+    var d = document.getElementById("inputword");
+    word = d.value.toLowerCase();
+    // clear box
+    d.value = '';
     //debug("WORD " + word);
     if (!reservedWords.includes(word) && !guessedWords.includes(word)) {
         guessedWords.push(word);
@@ -132,8 +140,10 @@ function gotoTop() {
     <div id="inputPane">
         <div style="text-align: center">
             <input type="button" value="Top" onclick="return gotoTop()"/>
-            <input type="text" id="inputword" size="20" onforminput="return guessWord()"/>
-            <input type="button" value="Guess" onclick="return guessWord()"/>
+            <input type="text" id="inputword" size="20"
+                onclick="document.getElementById('inputword').value = ''"
+                onkeypress="return guessWord(event)"/>
+            <input type="button" value="Guess" onclick="return guessWord(null)"/>
         </div>
     </div>
 </div>
