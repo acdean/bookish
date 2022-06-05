@@ -20,6 +20,12 @@ h2 {
     margin-bottom: 5pt;
 }
 
+h3 {
+    text-align: center;
+    margin-top: 5pt;
+    margin-bottom: 5pt;
+}
+
 p {
     text-indent:30px;
     text-align: justify;
