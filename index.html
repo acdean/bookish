@@ -10,6 +10,7 @@ var solved = false;
 var textArr = [];   // an array of "words" (words, markup or punctuation)
 var highlight = ""; // TODO highlight all instances of this word
 var guessedWords = [];
+var guessedHits = [];   // TODO parallel arrays = not good
 var reservedWords = [
     // free guesses
     'a', 'and', 'in', 'be', 'are', 'so', 'the', 'this', 'that', 'then',
@@ -61,7 +62,7 @@ function updateGuesses() {
         // TODO make this highlight the word in question
         gText.push("<td class='guess'>" + word + "</td>");
         // TODO count matches
-        gText.push("<td class='hits'>X</td>");
+        gText.push("<td class='hits'>" + guessedHits[i] + "</td>");
         gText.push("</tr>");
     }
     gText.push("</table>");
@@ -80,7 +81,9 @@ function guessWord() {
     //solved = true;
     // }
     highlight = word;
-    updateText();
+    hits = 0;
+    updateText();   // this will update hits
+    guessedHits.push(hits);
     updateGuesses();
 }
 
@@ -105,6 +108,7 @@ function gotoTop() {
 <script>
 // load the relevant game
 var game = document.location.search.substring(1);
+// TODO if no game given use the date. in gmt. make sure it's not in the future.
 document.write('<script language="javascript" src="games/' + game + '.js"><\/script>');
 </script>
 <!-- and initialise it -->

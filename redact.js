@@ -14,7 +14,7 @@ function redact(inArr) {
         outStr.push(redactWord(element));
     });
     //debug("OutStr [" + outStr.join('') + "]");
-    debug("Hits: " + hits)
+    //debug("Hits: " + hits)
     return outStr.join('');
 }
 
@@ -34,8 +34,8 @@ function redactWord(word) {
     }
     if (guessedWords.includes(lower)) {
         //debug("Guessed [" + lower + "]")
-        hits++;
         if (lower == highlight) {
+            hits++;
             return word.bold();
         } else {
             return word;
