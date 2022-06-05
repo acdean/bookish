@@ -4,14 +4,17 @@
 
 // go through source a word at a time, redact all those that aren't in the words list
 // also convert back into a string
+var hits = 0;
 function redact(inArr) {
     var outStr = [];
+    hits = 0;
     //debug("Guessed [" + guessedWords + "]");
     //debug("Reserved [" + reservedWords + "]");
     inArr.forEach(element => {
         outStr.push(redactWord(element));
     });
     //debug("OutStr [" + outStr.join('') + "]");
+    debug("Hits: " + hits)
     return outStr.join('');
 }
 
@@ -31,7 +34,12 @@ function redactWord(word) {
     }
     if (guessedWords.includes(lower)) {
         //debug("Guessed [" + lower + "]")
-        return word;
+        hits++;
+        if (lower == highlight) {
+            return word.bold();
+        } else {
+            return word;
+        }
     }
     return '████████████████████'.substr(0, word.length);
 }

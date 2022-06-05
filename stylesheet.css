@@ -22,6 +22,11 @@ p {
     text-align: justify;
 }
 
+/* highlighted word */
+b {
+    color: #96f;
+}
+
 #left {
     float: left;
     width: 75%;
