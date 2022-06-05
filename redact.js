@@ -18,6 +18,7 @@ function redact(inArr) {
     return outStr.join('');
 }
 
+// highlight is current guess
 function redactWord(word) {
     if (solved) {
         return word;
@@ -33,7 +34,7 @@ function redactWord(word) {
         return word;
     }
     if (guessedWords.includes(lower)) {
-        //debug("Guessed [" + lower + "]")
+        //debug("Guessed [" + lower + "][" + highlight + "]")
         if (lower == highlight) {
             hits++;
             return word.bold();

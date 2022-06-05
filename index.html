@@ -76,15 +76,16 @@ function guessWord() {
     //debug("WORD " + word);
     if (!reservedWords.includes(word) && !guessedWords.includes(word)) {
         guessedWords.push(word)
+        // if (all title words are in guessed words) {
+        //solved = true;
+        // }
+        // highlight is the current guess
+        highlight = word;
+        hits = 0;
+        updateText();   // this will update hits
+        guessedHits.push(hits);
+        updateGuesses();
     }
-    // if (all title words are in guessed words) {
-    //solved = true;
-    // }
-    highlight = word;
-    hits = 0;
-    updateText();   // this will update hits
-    guessedHits.push(hits);
-    updateGuesses();
 }
 
 function gotoTop() {
