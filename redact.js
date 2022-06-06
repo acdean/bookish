@@ -43,8 +43,8 @@ function redactWord(word) {
     if (reveal) {
         return word;
     }
-    // TODO these are slightly too large
-    return '████████████████████'.substr(0, word.length);
+    // return '████████████████████'.substr(0, word.length);        // 25% too large
+    return '12345678901234567890'.substr(0, word.length).fixed();   // can highlight
 }
 
 function debug(str) {

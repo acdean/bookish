@@ -36,6 +36,12 @@ b {
     color: #96f;
 }
 
+/* these are the redaction blocks */
+tt {
+    color: #ccc;
+    background-color: #ccc;
+}
+
 #left {
     float: left;
     width: 75%;
