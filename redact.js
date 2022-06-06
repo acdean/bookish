@@ -34,7 +34,8 @@ function redactWord(word) {
         //debug("Guessed [" + lower + "][" + highlight + "]")
         if (lower == highlight) {
             hits++;
-            return word.bold();
+            // name the highlights (0 - indexed)
+            return "<b id='hi" + (hits - 1) + "'>" + word + "</b>";
         } else {
             return word;
         }
@@ -42,6 +43,7 @@ function redactWord(word) {
     if (reveal) {
         return word;
     }
+    // TODO these are slightly too large
     return '████████████████████'.substr(0, word.length);
 }
 

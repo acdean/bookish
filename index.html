@@ -82,7 +82,7 @@ function updateGuesses() {
     for (var i = guessedWords.length - 1 ; i >= 0 ; i--) {
         var word = guessedWords[i];
         //debug("Word[" + i + "] " + word);
-        gText.push("<tr>");
+        gText.push("<tr id='guess" + i + "' onclick='return hiWord(" + i + ")'>");
         gText.push("<td class='count'>" + (i + 1) + ":</td>");
         gText.push("<td class='guess'>" + word + "</td>");
         gText.push("<td class='hits'>" + guessedHits[i] + "</td>");
@@ -92,6 +92,34 @@ function updateGuesses() {
     //debug("gtext " + gText);
     d = document.getElementById('guessesPane');
     d.innerHTML = gText.join('');
+}
+
+// highlights the word
+// (either the just entered word or the one just clicked in guesslist)
+var hi = 0;
+function hiWord(index) {
+    var highs = guessedHits[index]; // hits for this chosen word
+    if (highs == 0) {
+        // nothing to highlight for this word
+        return;
+    }
+    if (guessedWords[index] != highlight) {
+        // first press - need to refresh
+        hi = 0;
+        highlight = guessedWords[index];
+        rText = redactText();   // this will update hits and return redacted text array
+        displayText(rText);     // show the text
+        updateGuesses();        // show the guesses
+    }
+    ele = document.getElementById('hi' + hi);
+    // TODO highlight this one specifically? invert?
+    ele.scrollIntoView({
+        behavior: 'auto',
+        block: 'center',
+        inline: 'center'
+    });
+    // next time...
+    hi = (hi + 1) % highs;
 }
 
 function guessWord(event) {
@@ -130,6 +158,8 @@ function guessWord(event) {
         guessedHits.push(hits);
         displayText(rText);     // show the text
         updateGuesses();        // show the guesses
+        hi = 0;
+        hiWord(guessedWords.length - 1);    // highlight the new word
     }
 }
 
