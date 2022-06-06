@@ -130,6 +130,9 @@ function guessWord(event) {
     }
     var d = document.getElementById("inputword");
     word = d.value.toLowerCase();
+    if (word == "") {
+        return;
+    }
     // clear box
     d.value = '';
     //debug("WORD " + word);
