@@ -36,6 +36,13 @@ function init() {
     displayText(rText);         // writes text panel
     updateGuesses();            // writes guess panel
     extractTitle();             // gets title from h1 contents (minus reserved words)
+
+    // warn when navigating away. not ideal...
+    window.addEventListener("beforeunload", function (e) {
+        var confirmationMessage = 'Your changes will be lost.'; // text does not appear!
+        (e || window.event).returnValue = confirmationMessage;
+        return confirmationMessage;
+    });
 }
 
 var title = [];
