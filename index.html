@@ -178,7 +178,8 @@ function gotoTop() {
             <input type="button" value="Top" onclick="return gotoTop()"/>
             <input type="text" id="inputword" size="20"
                 onclick="document.getElementById('inputword').value = ''"
-                onkeypress="return guessWord(event)"/>
+                onkeypress="return guessWord(event)"
+                placeholder="Guess"/>
             <input type="button" value="Guess" onclick="return guessWord(null)"/>
         </div>
     </div>
