@@ -1,4 +1,3 @@
-var title = ["tale", "of", "two", "cities"];
 var url = "https://www.gutenberg.org/ebooks/98";
 var text = ""
     + "<h1>A Tale of Two Cities</h1>"

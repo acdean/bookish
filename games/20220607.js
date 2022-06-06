@@ -1,4 +1,3 @@
-var title = ['happy', 'prince'];
 var url = "https://www.gutenberg.org/ebooks/902";
 var text = ""
     + "<h1>The Happy Prince</h1>"

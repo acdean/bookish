@@ -1,4 +1,3 @@
-var title = ['crime', 'punishment']
 var url = 'https://www.gutenberg.org/ebooks/2554'
 var text = ""
     + "<h1>Crime And Punishment</h1>"

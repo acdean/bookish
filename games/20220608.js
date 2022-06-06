@@ -1,4 +1,3 @@
-var title = ['wonderful', 'wizard', 'oz']
 var url = "https://www.gutenberg.org/ebooks/55";
 var text = ""
     + "<h1>The Wonderful Wizard of Oz</h1>"

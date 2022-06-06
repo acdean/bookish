@@ -35,6 +35,20 @@ function init() {
     rText = redactText();       // redacts the entire array
     displayText(rText);         // writes text panel
     updateGuesses();            // writes guess panel
+    extractTitle();             // gets title from h1 contents (minus reserved words)
+}
+
+var title = [];
+function extractTitle() {
+    var t = text.match(/<h1>(.*?)<\/h1>/);  // title string
+    var tbits = t[1].split(/ /);
+    for (var i = 0 ; i < tbits.length ; i++) {
+        var titleWord = tbits[i].toLowerCase();
+        if (!reservedWords.includes(titleWord)) {
+            title.push(titleWord);
+        }
+    }
+    //debug("Title " + title);
 }
 
 function displayText(rText) {

@@ -1,4 +1,3 @@
-var title = ['carmilla'];
 var url = 'https://www.gutenberg.org/ebooks/10007';
 var text = ""
     + "<h1>Carmilla</h1>"

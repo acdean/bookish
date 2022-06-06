@@ -1,4 +1,3 @@
-var title = ['metamorphosis'];
 var url = 'https://gutenberg.org/ebooks/5200';
 var text = ""
     + "<h1>Metamorphosis</h1>"

@@ -1,4 +1,3 @@
-var title = ['scarlet', 'letter'];
 var url = 'https://www.gutenberg.org/ebooks/25344';
 var text = ""
     + "<h1>The Scarlet Letter</h1>"

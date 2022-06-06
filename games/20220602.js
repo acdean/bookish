@@ -1,4 +1,3 @@
-var title = ["adventures", "of", "huckleberry", "finn"];
 var url = "https://www.gutenberg.org/ebooks/76";
 var text = ""
     + "<h1>Adventures of Huckleberry Finn</h1>"

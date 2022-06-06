@@ -1,4 +1,3 @@
-var title = ['call', 'of', 'wild']
 var url = "https://www.gutenberg.org/ebooks/215"
 var text = ""
     + "<h1>The Call of the Wild</h1> <h2>Jack London</h2> <br/> <h2>Chapter I</h2> <h2>Into the Primitive</h2> <blockquote> &ldquo;Old longings nomadic leap,<br/> Chafing at custom's chain;<br/> Again from its brumal sleep<br/> Wakens the ferine strain.&rdquo; </blockquote>"
