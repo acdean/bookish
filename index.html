@@ -132,6 +132,7 @@ function updateGuesses() {
 // (either the just entered word or the one just clicked in guesslist)
 var hi = 0;
 function hiWord(index) {
+    //debug("HiWord " + index)
     var highs = guessedHits[index]; // hits for this chosen word
     if (highs == 0) {
         // nothing to highlight for this word
@@ -174,33 +175,45 @@ function guessWord(event) {
     // clear box
     d.value = '';
     //debug("WORD " + word);
-    if (!reservedWords.includes(word) && !guessedWords.includes(word)) {
-        guessedWords.push(word);
-        if (title.includes(word)) {
-            // remove word from title array
-            var tmp = [];
-            for (var i = 0 ; i < title.length ; i++) {
-                if (title[i] != word) {
-                    tmp.push(title[i]);
+    var newWord = !guessedWords.includes(word);
+    if (!reservedWords.includes(word)) {
+        if (newWord) {  // TODO does not work
+            //debug("New Word " + word);
+            guessedWords.push(word);
+            if (title.includes(word)) {
+                // remove word from title array
+                var tmp = [];
+                for (var i = 0 ; i < title.length ; i++) {
+                    if (title[i] != word) {
+                        tmp.push(title[i]);
+                    }
                 }
+                title = tmp;
+                //debug("Title " + title);
             }
-            title = tmp;
-            //debug("Title " + title);
-        }
-        if (title.length == 0) {
-            reveal = true;
-            winner = true;
+            if (title.length == 0) {
+                reveal = true;
+                winner = true;
+            }
+        } else {
+            //debug("Old Word " + word);
         }
         // highlight is the current guess
         highlight = word;
         hits = 0;
         rText = redactText();   // this will update hits and return redacted text array
         //debug("Guess: Word " + word + " Hits " + hits);
-        guessedHits.push(hits);
+        if (newWord) {
+            //debug("New hits " + hits);
+            guessedHits.push(hits);
+        }
         displayText(rText);     // show the text
         updateGuesses();        // show the guesses
         hi = 0;
-        hiWord(guessedWords.length - 1);    // highlight the new word
+        //debug("Guesses " + guessedWords.length + " Hits: " + guessedHits);
+        if (newWord) {
+            hiWord(guessedWords.length - 1);    // highlight the new word
+        }
         if (winner) {
             gotoTop();
         }
