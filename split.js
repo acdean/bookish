@@ -5,7 +5,7 @@
 var TAG_RE = "<[^>]*>";
 var ENT_RE = "&[^;]*;";
 var WORD_RE = "[A-Za-z0-9']{1,}";
-var PUNC_RE = "[ \.,!‘’“”—-]{1,}";
+var PUNC_RE = "[ !(),\-\.:;/?‘’“”—]{1,}";
 
 function split(text) {
     var out = [];
