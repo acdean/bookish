@@ -10,7 +10,7 @@
 var winner = false;
 var reveal = false;
 var textArr = [];   // an array of "words" (words, markup or punctuation)
-var highlight = ""; // TODO highlight all instances of this word
+var highlight = ""; // highlight all instances of this word
 var guessedWords = [];
 var guessedHits = [];   // TODO parallel arrays = not good
 var reservedWords = [
@@ -43,6 +43,14 @@ function init() {
         (e || window.event).returnValue = confirmationMessage;
         return confirmationMessage;
     });
+    document.getElementById("inputword").focus();
+}
+
+function solve() {
+    reveal = true;
+    rText = redactText();
+    displayText(rText);
+    gotoTop();
 }
 
 var title = [];
@@ -154,6 +162,10 @@ function guessWord(event) {
     if (word == "") {
         return;
     }
+    if (word == 'answer please') {
+        solve();
+        return;
+    }
     // clear box
     d.value = '';
     //debug("WORD " + word);
@@ -184,6 +196,9 @@ function guessWord(event) {
         updateGuesses();        // show the guesses
         hi = 0;
         hiWord(guessedWords.length - 1);    // highlight the new word
+        if (winner) {
+            gotoTop();
+        }
     }
 }
 
