@@ -111,7 +111,12 @@ function updateGuesses() {
     for (var i = guessedWords.length - 1 ; i >= 0 ; i--) {
         var word = guessedWords[i];
         //debug("Word[" + i + "] " + word);
-        gText.push("<tr id='guess" + i + "' onclick='return hiWord(" + i + ")'>");
+        if (highlight == word) {
+            cl = "highlight"
+        } else {
+            cl = "normal"
+        }
+        gText.push("<tr id='guess" + i + "' class='" + cl + "' onclick='return hiWord(" + i + ")'>");
         gText.push("<td class='count'>" + (i + 1) + ":</td>");
         gText.push("<td class='guess'>" + word + "</td>");
         gText.push("<td class='hits'>" + guessedHits[i] + "</td>");
