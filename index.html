@@ -35,7 +35,7 @@ function init() {
     textArr = split(text);      // splits text (defined in game/*js) into textarray
     rText = redactText();       // redacts the entire array
     displayText(rText);         // writes text panel
-    updateGuesses();            // writes guess panel
+    displayGuesses();           // writes guess panel
     extractTitle();             // gets title from h1 contents (minus reserved words)
 
     // warn when navigating away. not ideal...
@@ -71,22 +71,7 @@ function displayText(rText) {
     out = []
     out.push("<h3>Bookish " + game + "</h3>");
     if (winner) {
-        var h = 0;
-        var m = 0;
-        for (var i = 0 ; i < guessedHits.length ; i++) {
-            if (guessedHits[i] == 0) {
-                m++;
-            } else {
-                h++;
-            }
-        }
-        var pc = h * 100 / (h + m);
-        out.push("<h1>YOU ARE A WINNER</h1>"
-            + "<h2>Total Guesses: " + (h + m) + "</h2>"
-            + "<h2>Total Hits: " + h + "</h2>"
-            + "<h2>Total Misses: " + m + "</h2>"
-            + "<h2>Percentage correct: " + Math.floor(pc) + "</h2>"
-        );
+        out.push(winnerText());
     }
     if (reveal) {
         // add a link to the original
@@ -100,7 +85,26 @@ function displayText(rText) {
     d.innerHTML = out.join('');
 }
 
-function updateGuesses() {
+function winnerText() {
+    var h = 0;
+    var m = 0;
+    for (var i = 0 ; i < guessedHits.length ; i++) {
+        if (guessedHits[i] == 0) {
+            m++;
+        } else {
+            h++;
+        }
+    }
+    var pc = h * 100 / (h + m);
+    return("<h1>YOU ARE A WINNER</h1>"
+        + "<h2>Total Guesses: " + (h + m) + "</h2>"
+        + "<h2>Total Hits: " + h + "</h2>"
+        + "<h2>Total Misses: " + m + "</h2>"
+        + "<h2>Percentage correct: " + Math.floor(pc) + "</h2>"
+    );
+}
+
+function displayGuesses() {
     var gText = ["<h2 class='guessTitle'>Guesses</h2>"];
     //debug("Guesses " + guessedWords + ", " + guessedWords.length);
     gText.push("<table id='guessList'>");
@@ -117,7 +121,7 @@ function updateGuesses() {
         } else {
             cl = "normal"
         }
-        gText.push("<tr id='guess" + i + "' class='" + cl + "' onclick='return hiWord(" + i + ")'>");
+        gText.push("<tr id='guess" + i + "' class='" + cl + "' onclick='return highlightWord(" + i + ")'>");
         gText.push("<td class='count'>" + (i + 1) + ":</td>");
         gText.push("<td class='guess'>" + word + "</td>");
         gText.push("<td class='hits'>" + guessedHits[i] + "</td>");
@@ -132,8 +136,8 @@ function updateGuesses() {
 // highlights the word
 // (either the just entered word or the one just clicked in guesslist)
 var hi = 0;
-function hiWord(index) {
-    //debug("HiWord " + index)
+function highlightWord(index) {
+    //debug("highlightWord " + index)
     var highs = guessedHits[index]; // hits for this chosen word
     if (highs == 0) {
         // nothing to highlight for this word
@@ -145,15 +149,9 @@ function hiWord(index) {
         highlight = guessedWords[index];
         rText = redactText();   // this will update hits and return redacted text array
         displayText(rText);     // show the text
-        updateGuesses();        // show the guesses
+        displayGuesses();       // show the guesses
     }
-    ele = document.getElementById('hi' + hi);
-    // TODO highlight this one specifically? invert?
-    ele.scrollIntoView({
-        behavior: 'auto',
-        block: 'center',
-        inline: 'center'
-    });
+    gotoHighlight(hi);
     // next time...
     hi = (hi + 1) % highs;
 }
@@ -209,11 +207,11 @@ function guessWord(event) {
             guessedHits.push(hits);
         }
         displayText(rText);     // show the text
-        updateGuesses();        // show the guesses
+        displayGuesses();        // show the guesses
         hi = 0;
         //debug("Guesses " + guessedWords.length + " Hits: " + guessedHits);
         if (newWord) {
-            hiWord(guessedWords.length - 1);    // highlight the new word
+            highlightWord(guessedWords.length - 1);    // highlight the new word
         }
         if (winner) {
             gotoTop();
@@ -223,6 +221,15 @@ function guessWord(event) {
 
 function gotoTop() {
     document.getElementById('textPane').scrollTop = 0;
+}
+
+function gotoHighlight(hi) {
+    var ele = document.getElementById('hi' + hi);
+    ele.scrollIntoView({
+        behavior: 'auto',
+        block: 'center',
+        inline: 'center'
+    });
 }
 </script>
 <body>
