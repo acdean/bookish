@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>Bookish Previous</title>
+</head>
+<body>
+<div id='dates'></div>
+</body>
+<script>
+function pad(x) {
+    if (x < 10) {return "0" + x;}
+    return x;
+}
+
+function dString(date) {
+    var yyyy = date.getUTCFullYear();
+    var mm = pad(date.getUTCMonth() + 1);
+    var dd = pad(date.getUTCDate());
+    //alert("d: " + yyyy + mm + dd);
+    return(yyyy + mm + dd);
+}
+
+var today = new Date();
+var yyyy = today.getUTCFullYear();
+var mm = today.getUTCMonth();
+var dd = today.getUTCDate();
+
+var out = [];
+out.push("<a href='index.html'>Today</a><br/>");
+for (var i = 0 ; i < 50 ; i++) {
+    var d = new Date(yyyy, mm, dd - i);
+    var dStr = dString(d);
+    out.push("<a href='index.html?" + dStr + "'>" + dStr + "</a><br/>");
+    if (dStr == "20220601") {
+        break;
+    }
+}
+
+d = document.getElementById('dates');
+d.innerHTML = out.join('');
+
+</script>
+</html>
