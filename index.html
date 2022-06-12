@@ -2,11 +2,13 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<script type="text/javascript" src="load_game.js"></script>
 <script type="text/javascript" src="split.js"></script>
 <script type="text/javascript" src="redact.js"></script>
 </head>
 <script language="javascript">
 
+var game;
 var winner = false;
 var reveal = false;
 var textArr = [];   // an array of "words" (words, markup or punctuation)
@@ -252,27 +254,7 @@ function gotoHighlight(hi) {
   <div id="guessesPane">The guesses go here</div>
 </div>
 <script>
-// load the relevant game
-var game = document.location.search.substring(1);
-// get dateStr for current date
-var date = new Date();
-var yyyy = "" + date.getUTCFullYear();
-var mm = date.getUTCMonth() + 1;
-if (mm < 10) {
-    mm = "0" + mm;
-};
-var dd = date.getUTCDate();
-if (dd < 10) {
-    dd = "0" + dd
-}
-var dateStr = "" + yyyy + mm + dd;
-//debug("Game: " + game + " Date: " + dateStr)
-// if game not given or it's the future then use today
-if (game == "" || game > dateStr) {
-    game = dateStr;
-}
-//debug("Game " + game);
-document.write('<script language="javascript" src="games/' + game + '.js"><\/script>');
+game = load_game();
 </script>
 <!-- and initialise it -->
 <script>
