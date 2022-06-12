@@ -1,12 +1,21 @@
 body {
+    min-height: 100vh;
     margin: 0;
     font-size: 20pt;
     font-family: 'sans-serif';
-    font-weight: 'bold';
+    font-weight: bold;
     background-color: #333;
 }
 a {
     color: #96f;
+}
+
+nav {
+    width: 98vw;
+    height: 10vh;
+    position: fixed;
+    color: white;
+    background-color: #333;
 }
 
 h1 {
@@ -48,19 +57,21 @@ tt {
 }
 
 #left {
+    padding-top: 10vh;  /* same as nav height */
     float: left;
-    width: 75%;
+    width: 75vw;
     background-color: #f69;
 }
 
 #right {
-    float:right;
-    width: 25%;
+    padding-top: 10vh;  /* same as nev height */
+    float:left;
+    width: 23vw;
     background-color: #9f6;
 }
 
 #textPane {
-    height: 90%;
+    height: 80%;
     padding: 10px;
     overflow-y: auto;
     background-color: #333;
@@ -68,28 +79,29 @@ tt {
 }
 
 #inputPane {
+    position: fixed;
+    bottom: 0;
     height: 10%;
+    width: 75vw;    /* same as left */
+    clear: left;
     background-color: #96f;
-}
-input[type = text] {
-    height: 80%;
-    font-size: 20pt;
-}
-input[type = button] {
-    height: 80%;
-    font-size: 20pt;
+    display: flex;
+    align-items: center;
 }
 
 #guessesPane {
     width: 100%;
-    height: 100%;
+    height: 80%;
     background-color: #333;
     color: #c9f;
-    padding: 15px;
+    padding: 10px;
     overflow-y: auto;
 }
 #guessList {
     color: #c9f;
+}
+table {
+    width: 80%;
     font-size: 20pt;
 }
 .count {width: 20%; text-align: right;}
