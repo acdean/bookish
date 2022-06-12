@@ -12,6 +12,7 @@ var game;
 var winner = false;
 var reveal = false;
 var textArr = [];   // an array of "words" (words, markup or punctuation)
+var redactedArray = [];
 var highlight = ""; // highlight all instances of this word
 var guessedWords = [];
 var guessedHits = [];   // TODO parallel arrays = not good
@@ -36,11 +37,11 @@ var reservedWords = [
 ]
 
 function init() {
-    textArr = split(text);      // splits text (defined in game/*js) into textarray
-    rText = redactText();       // redacts the entire array
-    displayText(rText);         // writes text panel
-    displayGuesses();           // writes guess panel
-    extractTitle();             // gets title from h1 contents (minus reserved words)
+    textArr = split(text);  // splits text (defined in game/*js) into textarray
+    redactText();           // redacts the entire array
+    displayText();          // writes text panel
+    displayGuesses();       // writes guess panel
+    extractTitle();         // gets title from h1 contents (minus reserved words)
 
     // warn when navigating away. not ideal...
     window.addEventListener("beforeunload", function (e) {
@@ -53,8 +54,8 @@ function init() {
 
 function solve() {
     reveal = true;
-    rText = redactText();
-    displayText(rText);
+    redactText();
+    displayText();
     gotoTop();
 }
 
@@ -71,7 +72,7 @@ function extractTitle() {
     //debug("Title " + title);
 }
 
-function displayText(rText) {
+function displayText() {
     out = []
     out.push("<h3>Bookish " + game + "</h3>");
     if (winner) {
@@ -84,7 +85,7 @@ function displayText(rText) {
             + "<br/>"
         );
     }
-    out.push(rText);
+    out = out.concat(redactedArray);
     d = document.getElementById('textPane');
     d.innerHTML = out.join('');
 }
@@ -151,9 +152,9 @@ function highlightWord(index) {
         // first press - need to refresh
         hi = 0;
         highlight = guessedWords[index];
-        rText = redactText();   // this will update hits and return redacted text array
-        displayText(rText);     // show the text
-        displayGuesses();       // show the guesses
+        redactText();       // this will update hits and return redacted text array
+        displayText();      // show the text
+        displayGuesses();   // show the guesses
     }
     gotoHighlight(hi);
     // next time...
@@ -203,15 +204,14 @@ function guessWord(event) {
         }
         // highlight is the current guess
         highlight = word;
-        hits = 0;
-        rText = redactText();   // this will update hits and return redacted text array
+        hits = redactText();    // this will update redacted text array and return hits
         //debug("Guess: Word " + word + " Hits " + hits);
         if (newWord) {
             //debug("New hits " + hits);
             guessedHits.push(hits);
         }
-        displayText(rText);     // show the text
-        displayGuesses();        // show the guesses
+        displayText();      // show the text
+        displayGuesses();   // show the guesses
         hi = 0;
         //debug("Guesses " + guessedWords.length + " Hits: " + guessedHits);
         if (newWord) {

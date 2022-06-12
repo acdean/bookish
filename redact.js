@@ -2,20 +2,20 @@
 // var logger = log4js.getLogger();
 // logger.level = "debug";
 
-// go through source a word at a time, redact all those that aren't in the words list
-// also convert back into a string
+// recalculates global redactedArray based on original text and guesses
+// returns number of hits for the current highlighted word
 var hits = 0;
 function redactText() {
-    var outStr = [];
+    redactedArray.length = 0    // truncate array
     hits = 0;
     //debug("Guessed [" + guessedWords + "]");
     //debug("Reserved [" + reservedWords + "]");
     textArr.forEach(element => {
-        outStr.push(redactWord(element));
+        redactedArray.push(redactWord(element));
     });
-    //debug("OutStr [" + outStr.join('') + "]");
+    //debug("RedactedArray [" + redactedArray.join('') + "]");
     //debug("Hits: " + hits)
-    return outStr.join('');
+    return hits;
 }
 
 // highlight is current guess
