@@ -4,7 +4,9 @@
 
 // recalculates global redactedArray based on original text and guesses
 // also recalculates hits for the highlighted word
+var seed = 1;
 function redactText() {
+    seed = 1;
     redactedArray.length = 0    // truncate array
     hits = 0;
     //debug("Guessed [" + guessedWords + "]");
@@ -42,7 +44,25 @@ function redactWord(word) {
         return word;
     }
     // return '████████████████████'.substr(0, word.length);        // 25% too large
-    return '12345678901234567890'.substr(0, word.length).fixed();   // can highlight
+    var len = word.length;
+    if (level == "hard") {
+        // uncountable image
+        return "<img src='black.jpg' style='width:" + (len * .7) + "em;'/>";
+    }
+    if (level == "medium") {
+        // random factor
+        len += random();
+    }
+    return '12345678901234567890'.substr(0, len).fixed();
+}
+
+// -1, 0, +1
+function random() {
+    var x = Math.sin(seed++) * 10000;
+    rnd = x - Math.floor(x);
+    rnd = Math.floor(rnd * 3) - 1;
+    // alert("Rnd: " + rnd);
+    return rnd;
 }
 
 function debug(str) {

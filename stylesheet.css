@@ -130,3 +130,5 @@ table {
 .count {width: 20%; text-align: right;}
 .guess {width: 60%;}
 .hits {width: 20%; text-align: right;}
+
+img {height: 1.2em; vertical-align: sub;}
