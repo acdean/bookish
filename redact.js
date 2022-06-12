@@ -3,8 +3,7 @@
 // logger.level = "debug";
 
 // recalculates global redactedArray based on original text and guesses
-// returns number of hits for the current highlighted word
-var hits = 0;
+// also recalculates hits for the highlighted word
 function redactText() {
     redactedArray.length = 0    // truncate array
     hits = 0;
@@ -15,7 +14,6 @@ function redactText() {
     });
     //debug("RedactedArray [" + redactedArray.join('') + "]");
     //debug("Hits: " + hits)
-    return hits;
 }
 
 // highlight is current guess

@@ -11,6 +11,7 @@
 var game;
 var winner = false;
 var reveal = false;
+var hits = 0;
 var textArr = [];   // an array of "words" (words, markup or punctuation)
 var redactedArray = [];
 var highlight = ""; // highlight all instances of this word
@@ -204,7 +205,7 @@ function guessWord(event) {
         }
         // highlight is the current guess
         highlight = word;
-        hits = redactText();    // this will update redacted text array and return hits
+        redactText();    // this will update redacted text array and hits
         //debug("Guess: Word " + word + " Hits " + hits);
         if (newWord) {
             //debug("New hits " + hits);
