@@ -5,6 +5,8 @@ body {
     font-family: 'sans-serif';
     font-weight: bold;
     background-color: #333;
+    scrollbar-width: auto;
+    scrollbar-color: #c9f #333; /* foreground, background */ 
 }
 a {
     color: #96f;
@@ -15,7 +17,17 @@ nav {
     height: 10vh;
     position: fixed;
     color: white;
-    background-color: #333;
+    background-color: #666;
+    display: flex;
+    align-items: center;
+}
+nav span {
+    font-size: 40pt;
+    font-weight: bold;
+}
+nav input {
+    font-size: 20pt;
+    font-weight: bold;
 }
 
 h1 {
@@ -84,9 +96,20 @@ tt {
     height: 10%;
     width: 75vw;    /* same as left */
     clear: left;
-    background-color: #96f;
+    background-color: #666;
     display: flex;
     align-items: center;
+}
+#inputPane table {
+    width: 75vw;
+}
+#inputPane tr {
+    text-align: center;
+}
+#inputPane tr td input {
+    font-size: 20pt;
+    font-weight: bold;
+    border:solid 5px #96f; 
 }
 
 #guessesPane {

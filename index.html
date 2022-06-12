@@ -104,6 +104,7 @@ function winnerText() {
     }
     var pc = h * 100 / (h + m);
     return("<h1>YOU ARE A WINNER</h1>"
+        + "<h2>Bookish " + game + "</h2>"
         + "<h2>Total Guesses: " + (h + m) + "</h2>"
         + "<h2>Total Hits: " + h + "</h2>"
         + "<h2>Total Misses: " + m + "</h2>"
@@ -245,7 +246,9 @@ function gotoHighlight(hi) {
 <body>
 <nav id="top">
     <span id="title">Bookish xxxxxx</span>
+    &nbsp;&nbsp;&nbsp;
     <input type="button" value="About"/>
+    &nbsp;&nbsp;&nbsp;
     <input type="button" value="Previous"/>
 </nav>
 <div id="middle">
@@ -257,14 +260,20 @@ function gotoHighlight(hi) {
     </div>
 </div>
 <div id="inputPane">
-    <div id="buttons">
-        <input type="button" value="Top" onclick="return gotoTop()"/>
-        <input type="text" id="inputword" size="20"
-            onclick="document.getElementById('inputword').value = ''"
-            onkeypress="return guessWord(event)"
-            placeholder="Guess"/>
-        <input type="button" value="Guess" onclick="return guessWord(null)"/>
-    </div>
+    <table>
+        <tr>
+            <td>
+                <div id="buttons">
+                    <input type="button" value="Top" onclick="return gotoTop()"/>
+                    <input type="text" id="inputword" size="20"
+                        onclick="document.getElementById('inputword').value = ''"
+                        onkeypress="return guessWord(event)"
+                        placeholder="Guess"/>
+                    <input type="button" value="Guess" onclick="return guessWord(null)"/>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 <script>
 game = load_game();
