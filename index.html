@@ -172,6 +172,24 @@ function highlightWord(index) {
     hi = (hi + 1) % highs;
 }
 
+function updateTitle(word) {
+    if (title.includes(word)) {
+        // remove word from title array
+        var tmp = [];
+        for (var i = 0 ; i < title.length ; i++) {
+            if (title[i] != word) {
+                tmp.push(title[i]);
+            }
+        }
+        title = tmp;
+        //debug("Title " + title);
+    }
+    if (title.length == 0) {
+        reveal = true;
+        winner = true;
+    }
+}
+
 function guessWord(event) {
     // button sends null, keypress sends keycode of input
     if (event != null && event.keyCode != 13) {
@@ -195,21 +213,7 @@ function guessWord(event) {
         if (newWord) {  // TODO does not work
             //debug("New Word " + word);
             guessedWords.push(word);
-            if (title.includes(word)) {
-                // remove word from title array
-                var tmp = [];
-                for (var i = 0 ; i < title.length ; i++) {
-                    if (title[i] != word) {
-                        tmp.push(title[i]);
-                    }
-                }
-                title = tmp;
-                //debug("Title " + title);
-            }
-            if (title.length == 0) {
-                reveal = true;
-                winner = true;
-            }
+            updateTitle(word);
         } else {
             //debug("Old Word " + word);
         }
@@ -254,8 +258,9 @@ function setWords() {
     }
     var words = d.value;
     for (var i = 0 ; i < words ; i++) {
-        guessedWords.push(commonWords[i]);
         highlight = commonWords[i];
+        guessedWords.push(highlight);
+        updateTitle(highlight);
         redactText();   // slow...
         guessedHits.push(hits);
     }    
