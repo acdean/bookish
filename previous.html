@@ -1,8 +1,10 @@
 <html>
 <head>
-<title>Bookish Previous</title>
+<title>bookish previous</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
 </head>
 <body>
+<h1>bookish previous</h1>
 <div id='dates'></div>
 </body>
 <script>
@@ -25,11 +27,11 @@ var mm = today.getUTCMonth();
 var dd = today.getUTCDate();
 
 var out = [];
-out.push("<a href='index.html'>Today</a><br/>");
+out.push("<h2><a href='index.html'>today</a></h2>");
 for (var i = 0 ; i < 50 ; i++) {
     var d = new Date(yyyy, mm, dd - i);
     var dStr = dString(d);
-    out.push("<a href='index.html?" + dStr + "'>" + dStr + "</a><br/>");
+    out.push("<h2><a href='index.html?" + dStr + "'>" + dStr + "</a></h2>");
     if (dStr == "20220601") {
         break;
     }
