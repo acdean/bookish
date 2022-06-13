@@ -25,7 +25,7 @@ function redactWord(word) {
         return word;
     }
     var lower = word.toLowerCase();
-    //debug("Word [" + lower + "]")
+    // debug("Word [" + lower + "]")
     if (reservedWords.includes(lower)) {
         //debug("Reserved [" + lower + "]")
         return word;
@@ -45,11 +45,11 @@ function redactWord(word) {
     }
     // return '████████████████████'.substr(0, word.length);        // 25% too large
     var len = word.length;
-    if (level == "hard") {
+    if (blocks == "solid") {
         // uncountable image
         return "<img src='black.jpg' style='width:" + (len * .7) + "em;'/>";
     }
-    if (level == "medium") {
+    if (blocks == "inaccurate") {
         // random factor
         len += random();
     }

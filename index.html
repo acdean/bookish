@@ -8,7 +8,6 @@
 </head>
 <script language="javascript">
 
-var level = "hard";
 var game;
 var winner = false;
 var reveal = false;
@@ -18,11 +17,14 @@ var redactedArray = [];
 var highlight = ""; // highlight all instances of this word
 var guessedWords = [];
 var guessedHits = [];   // TODO parallel arrays = not good
-var reservedWords = [
-    // free guesses
-    "the", "and", "of", "to", "a", "in", "i", "he", "was", "it",    
+var commonWords = [
+    "the", "and", "of", "to", "a", "in", "i", "he", "was", "it",
     "that", "his", "with", "for", "as", "is", "had", "you", "not", "at",
     "but", "on", "be", "all", "we", "her", "have", "my", "they", "by",
+    "there", "she", "him", "so", "which", "this", "me", "one", "from", "were",
+    "said", "no", "are", "or", "when", "out", "would", "what", "who", "them"
+];
+var reservedWords = [
     // also all the expected html tags
     '<p>', '</p>',
     '<h1>', '</h1>',
@@ -53,6 +55,8 @@ function init() {
     });
     document.getElementById("inputword").focus();
     document.getElementById("title").innerHTML = "bookish " + game;
+    document.getElementById("blocks").selectedIndex = 0;
+    document.getElementById("words").selectedIndex = 0;
 }
 
 function solve() {
@@ -242,14 +246,61 @@ function gotoHighlight(hi) {
         inline: 'center'
     });
 }
+
+function setWords() {
+    var d = document.getElementById("words");
+    if (d.value == "0") {
+        return;
+    }
+    var words = d.value;
+    for (var i = 0 ; i < words ; i++) {
+        guessedWords.push(commonWords[i]);
+        highlight = commonWords[i];
+        redactText();   // slow...
+        guessedHits.push(hits);
+    }    
+    d.disabled = true;
+    // debug(guessedWords);
+    displayText();
+    displayGuesses();
+}
+
+var blocks = "normal";
+function setBlocks() {
+    var d = document.getElementById("blocks");
+    if (d.value == "none") {
+        return;
+    }
+    blocks = d.value;
+    d.disabled = true;
+    redactText();
+    displayText();
+}
 </script>
 <body>
 <nav id="top">
     <span id="title">bookish xxxxxx</span>
+    <!-- &nbsp;&nbsp;&nbsp;
+    <input type="button" value="about"/> -->
     &nbsp;&nbsp;&nbsp;
-    <input type="button" value="about"/>
+    <select name="words" id="words" onchange="return setWords()">
+        <option value="none" selected="true">insert words</option>
+        <option value="0">0</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+        <option value="50">50</option>
+    </select>
     &nbsp;&nbsp;&nbsp;
-    <input type="button" value="previous"/>
+    <select name="blocks" id="blocks" onchange="return setBlocks()">
+        <option value="none" selected="true">block type</option>
+        <option value="normal">normal</option>
+        <option value="inaccurate">inaccurate</option>
+        <option value="solid">solid</option>
+    </select>
+    &nbsp;&nbsp;&nbsp;
+    <a href="previous.html" target="new"><input type="button" value="previous"/></a>
 </nav>
 <div id="middle">
     <div id="left">

@@ -29,6 +29,10 @@ nav input {
     font-size: 20pt;
     font-weight: bold;
 }
+nav select {
+    font-size: 20pt;
+    font-weight: bold;
+}
 #title {
     margin-left: 20px;
 }
