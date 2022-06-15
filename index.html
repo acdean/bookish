@@ -5,7 +5,6 @@
 <script type="text/javascript" src="load_game.js"></script>
 <script type="text/javascript" src="split.js"></script>
 <script type="text/javascript" src="redact.js"></script>
-</head>
 <script language="javascript">
 
 var game;
@@ -14,7 +13,6 @@ var reveal = false;
 var hits = 0;
 var textArr = [];   // an array of "words" (words, markup or punctuation)
 var redactedArray = [];
-var highlight = ""; // highlight all instances of this word
 var guessedWords = [];
 var guessedHits = [];   // TODO parallel arrays = not good
 var commonWords = [
@@ -151,25 +149,46 @@ function displayGuesses() {
 
 // highlights the word
 // (either the just entered word or the one just clicked in guesslist)
-var hi = 0;
+var highlight = ""
+var prev_hi_index = -1
+var highlight_index = -1;
 function highlightWord(index) {
-    //debug("highlightWord " + index)
-    var highs = guessedHits[index]; // hits for this chosen word
-    if (highs == 0) {
-        // nothing to highlight for this word
-        return;
-    }
-    if (guessedWords[index] != highlight) {
-        // first press - need to refresh
-        hi = 0;
+    //alert("HighlightWord new:" + index + " prev:" + prev_hi_index)
+    if (index != prev_hi_index) {
+        // new word (or a change)
         highlight = guessedWords[index];
-        redactText();       // this will update hits and return redacted text array
-        displayText();      // show the text
-        displayGuesses();   // show the guesses
+        highs = guessedHits[index];
+        if (highs == 0) {
+            // do nothing
+            return;
+        }
+        redactText();       // highlight bits of the text
+        displayText();      // and show it
+        highlight_index = 0;
+        highlightSingleWord(highlight_index);
+        displayGuesses();   // update guess highlights
+    } else {
+        // this is an old word, selected again
+        lowlightSingleWord(highlight_index);
+        highlight_index = (highlight_index + 1) % highs;
+        highlightSingleWord(highlight_index);
     }
-    gotoHighlight(hi);
-    // next time...
-    hi = (hi + 1) % highs;
+    gotoHighlight(highlight_index);
+    prev_hi_index = index;
+}
+
+// unhighlight word (prior to highlighting the next one)
+function lowlightSingleWord(highlightIndex) {
+    //debug("clearing hi" + highlightIndex)
+    var ele = document.getElementById('hi' + highlightIndex);
+    ele.className = "";
+}
+
+// inverse video the current instance of highlighted word 
+function highlightSingleWord(highlightIndex) {
+    //debug("highlighting hi" + highlightIndex)
+    var ele = document.getElementById('hi' + highlightIndex);
+    ele.className = "special";
 }
 
 function updateTitle(word) {
@@ -199,6 +218,7 @@ function guessWord(event) {
     var d = document.getElementById("inputword");
     word = d.value.toLowerCase();
     if (word == "") {
+        // TODO next highlighted word?
         return;
     }
     if (word == 'answer please') {
@@ -214,8 +234,12 @@ function guessWord(event) {
             //debug("New Word " + word);
             guessedWords.push(word);
             updateTitle(word);
+            highlight_index = 0;
         } else {
             //debug("Old Word " + word);
+            // can we do something here?
+            // next highlighted word?
+            // but only if different from previous?
         }
         // highlight is the current guess
         highlight = word;
@@ -227,11 +251,8 @@ function guessWord(event) {
         }
         displayText();      // show the text
         displayGuesses();   // show the guesses
-        hi = 0;
+        gotoGuess();
         //debug("Guesses " + guessedWords.length + " Hits: " + guessedHits);
-        if (newWord) {
-            highlightWord(guessedWords.length - 1);    // highlight the new word
-        }
         if (winner) {
             gotoTop();
         }
@@ -249,6 +270,34 @@ function gotoHighlight(hi) {
         block: 'center',
         inline: 'center'
     });
+}
+
+// guesses have <tr id=guess99><tr><td class=guess>
+// we have to iterate through to find the match
+function gotoGuess(word) {
+    if (word == null) {
+        // highlight top
+        var tr = document.getElementById('guess' + (guessedWords.length - 1));
+        tr.scrollIntoView({
+            behavior: 'auto',
+            block: 'center',
+            inline: 'center'
+        });
+        return;
+    }
+    // find matching word
+    for (var i = 0 ; i < guessedWords.length ; i++) {
+        var tr = document.getElementById('guess' + i);
+        var val = tr.children[1].textContent;
+        if (val == word) {
+            tr.scrollIntoView({
+                behavior: 'auto',
+                block: 'center',
+                inline: 'center'
+            });
+            return;
+        }
+    }
 }
 
 function setWords() {
@@ -282,6 +331,7 @@ function setBlocks() {
     displayText();
 }
 </script>
+</head>
 <body>
 <nav id="top">
     <span id="title">bookish xxxxxx</span>

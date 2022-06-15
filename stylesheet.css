@@ -6,7 +6,7 @@ body {
     font-weight: bold;
     background-color: #333;
     scrollbar-width: auto;
-    scrollbar-color: #c9f #333; /* foreground, background */ 
+    scrollbar-color: #c9f #333; /* foreground, background */
 }
 a {
     color: #96f;
@@ -73,6 +73,10 @@ p {
 /* highlighted word */
 b {
     color: #96f;
+}
+b.special {
+    background-color: #c9f;
+    color: #000;
 }
 
 /* these are the redaction blocks */
